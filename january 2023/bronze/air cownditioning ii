@@ -21,7 +21,7 @@ int calculate(string state) {
         if (state[i] == '1') {
             tcost += acost[i];
             temps[astart[i]] += atemp[i];
-            temps[aend[i]] -= atemp[i];
+            temps[aend[i]] -= atemp[i]; //this method is probably unnecessary and is just for faster runtime
         }
     }
     vector<int> utemps(101, 0);
