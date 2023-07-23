@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n; cin >> n;
+    while (n--) {
+        string s; cin >> s;
+        if (s.size() <= 2) {
+            cout << "-1" << endl;
+            continue;
+        }
+        int mini = 3;
+        for (int i = 1; i < s.size()-1; i++) {
+            if (s[i] == 'O') {
+                //cout << "o found" << endl;
+                if (s[i-1] == 'M' && s[i+1] == 'O') {
+                    mini = min(mini, 0);
+                    break; //smallest possible, why go throuhg the rest
+                }
+                if (s[i-1] != 'M' && s[i+1] != 'O') {
+                    mini = min(mini, 2);
+                }
+                if (s[i-1] == 'M' || s[i+1] == 'O') {
+                    mini = min(mini, 1);
+                    continue;
+                }
+            }
+        }
+        if (mini == 3) {
+            cout << -1 << endl;
+            continue;
+        }
+        cout << mini + s.size() - 3 << endl;
+    }
+    return 0;
+}
