@@ -1,0 +1,81 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n, m;
+vector<int> cstart, c_end, ctemp;
+vector<int> astart, aend, atemp, acost;
+
+string binary(int n) {
+    // Size of an integer is assumed to be 10 bits
+    string out = "";
+    for (int i = 10; i >= 0; i--) {
+        int k = n >> i;
+        if (k & 1) out += "1";
+        else out += "0";
+    }
+    return out;
+}
+int calculate(string state) {
+    vector<int> temps(101, 0);
+    int tcost = 0;
+    for (int i = 0; i < state.size(); i++) {
+        if (state[i] == '1') {
+            tcost += acost[i];
+            temps[astart[i]] += atemp[i];
+            temps[aend[i]] -= atemp[i];
+        }
+    }
+    vector<int> utemps(101, 0);
+    int curr = 0;
+    for (int i = 0; i < temps.size(); i++) {
+        curr += temps[i];
+        utemps[i] = curr;
+    }
+    // for (int i = 0; i < 10; i++) {
+    //     cout << utemps[i] << " ";
+    // }
+    // cout << endl;
+    bool works = true;
+    for (int i = 0; i < n; i++) {
+        for (int j = cstart[i]; j < c_end[i]; j++) {
+            if (utemps[j] < ctemp[i]) {
+                works = false;
+            }
+        }
+    }
+    if (works) return tcost;
+    if (!works) return -1;
+}
+int main() {
+    //input
+    cin >> n >> m;
+    for (int i = 0; i < n; i++) {
+        int a, b, c; cin >> a >> b >> c;
+        a--;
+        cstart.push_back(a);
+        c_end.push_back(b);
+        ctemp.push_back(c);
+    }
+    for (int i = 0; i < m; i++) {
+        int a, b, c, d; cin >> a >> b >> c >> d;
+        a--;
+        astart.push_back(a);
+        aend.push_back(b);
+        atemp.push_back(c);
+        acost.push_back(d);
+    }
+    //count up from 1 to 2^m and convert to binary, use this as on/off for conditioners
+    //cout << pow(2, m) << endl;
+    int mini = 2147483647;
+    for (int i = 0; i < pow(2, m); i++) {
+        string b = binary(i);
+        string state = b.substr(b.size() - m);
+        // cout << state << endl;
+        int cost = calculate(state);
+        // cout << cost << endl;
+        if (cost != -1) {
+            mini = min(mini, cost);
+        }
+    }
+    cout << mini << endl;
+    return 0;
+}
