@@ -39,7 +39,7 @@ int main() {
     if (vals[fG] >= lG) {
         //g is a leader
         for (int i = 0; i < fG; i++) {
-            if (i == fH) continue;
+            if (i == fH) continue; //we will cover this later
             if (s[i] == 'H') {
                 if (vals[i] >= fG) {
                     out++;
@@ -49,7 +49,7 @@ int main() {
     }
     if (vals[fH] >= lH) {
         for (int i = 0; i < fH; i++) {
-            if (i == fG) continue;
+            if (i == fG) continue; //we will cover this later
             if (s[i] == 'G') {
                 if (vals[i] >= fH) {
                     out++;
@@ -57,7 +57,7 @@ int main() {
             }
         }
     }
-    if ((vals[fG] >= lG || (fG <= fH && vals[fG] >= fH)) && (vals[fH] >= lH || (fH <= fG && vals[fH] >= fG))) {
+    if ((vals[fG] >= lG || (fG <= fH && vals[fG] >= fH)) && (vals[fH] >= lH || (fH <= fG && vals[fH] >= fG))) { //wow we covered it
         out++;
     }
 

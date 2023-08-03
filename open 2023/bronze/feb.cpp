@@ -10,7 +10,7 @@ int main() {
             i++; continue;
         }
         //not f
-        int a = i+1;
+        int a = i+1; //we wanna group everything by blocks of f's no matter how big the bocks of f
         while(a < n && s[a] == 'F') a++;
         if (a >= n) break;
         int fsize = a - i - 1;

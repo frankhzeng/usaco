@@ -22,7 +22,7 @@ int main() {
             //create type1
             ncnt -= type1;
             curr += 2*type1;
-            if (ncnt < 0) continue;
+            if (ncnt < 0) continue; //try all numbers of type1 by fixing them
             
             //create type2
             int type2 = min(min((int)trans.size(), ncnt/2), 2 * min(ccnt, periods) + max(0, periods - ccnt));
@@ -54,7 +54,7 @@ int main() {
             continue;
         }
         
-        vector<vector<string>> sent;
+        vector<vector<string>> sent; //this problem is fucking cancer
         for (int i = 0; i < t1; i++) {
             sent.push_back({nouns[nouns.size()-1], intrans[intrans.size()-1]});
             nouns.pop_back(); intrans.pop_back();
